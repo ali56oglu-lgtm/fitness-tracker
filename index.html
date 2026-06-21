@@ -1,75 +1,68 @@
 <!DOCTYPE html>
 <!--
-  index.html — the structure of the page.
-  HTML describes WHAT is on the page (headings, forms, lists).
-  The styling lives in style.css and the behavior lives in app.js.
+  index.html — the page structure.
+  Hevy-inspired layout: a stats strip, an "active workout" area where you add
+  exercises and log sets (kg x reps), and a history list of finished workouts.
 -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fitness Tracker</title>
+
+  <!-- Inter font, a close stand-in for Hevy's clean sans-serif (from Google Fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="container">
-    <h1>🏋️ Fitness Tracker</h1>
-    <p class="subtitle">Log your workouts and track your progress.</p>
+    <header class="app-header">
+      <h1>🏋️ Fitness Tracker</h1>
+    </header>
 
     <!-- Summary cards: filled in by app.js -->
     <section class="stats">
       <div class="stat-card">
         <span class="stat-number" id="totalWorkouts">0</span>
-        <span class="stat-label">Total workouts</span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number" id="weekMinutes">0</span>
-        <span class="stat-label">Minutes this week</span>
+        <span class="stat-label">Workouts</span>
       </div>
       <div class="stat-card">
         <span class="stat-number" id="weekWorkouts">0</span>
-        <span class="stat-label">Workouts this week</span>
+        <span class="stat-label">This week</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" id="weekVolume">0</span>
+        <span class="stat-label">kg volume / week</span>
       </div>
     </section>
 
-    <!-- The form for adding a new workout -->
+    <!-- The active workout lives here; app.js fills it in (Start button, or the
+         live session with its exercises and sets). -->
+    <section id="activeArea"></section>
+
+    <!-- Finished workouts -->
     <section class="card">
-      <h2>Add a workout</h2>
-      <form id="workoutForm">
-        <div class="field">
-          <label for="exercise">Exercise</label>
-          <input type="text" id="exercise" placeholder="e.g. Running, Bench press" required />
-        </div>
-
-        <div class="row">
-          <div class="field">
-            <label for="duration">Duration (minutes)</label>
-            <input type="number" id="duration" min="1" placeholder="30" required />
-          </div>
-          <div class="field">
-            <label for="date">Date</label>
-            <input type="date" id="date" required />
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="notes">Notes (optional)</label>
-          <input type="text" id="notes" placeholder="How did it feel?" />
-        </div>
-
-        <button type="submit">Add workout</button>
-      </form>
-    </section>
-
-    <!-- The list of logged workouts -->
-    <section class="card">
-      <h2>Your workouts</h2>
-      <ul id="workoutList" class="workout-list"></ul>
-      <p id="emptyMessage" class="empty">No workouts logged yet. Add your first one above! 💪</p>
+      <h2>History</h2>
+      <div id="historyList"></div>
+      <p id="emptyHistory" class="empty">No finished workouts yet. Start one above! 💪</p>
     </section>
   </main>
 
-  <!-- The behavior. Loaded last so the page exists before the script runs. -->
+  <!-- Rest timer bar. Hidden until a rest starts (auto on completing a set,
+       or via the ⏱ button on an exercise). Fixed to the bottom of the screen. -->
+  <div id="restTimer" class="rest-timer" hidden>
+    <button class="rest-btn" data-rest="adjust" data-delta="-15">−15s</button>
+    <div class="rest-display">
+      <span class="rest-label">Rest</span>
+      <span id="restTime">1:30</span>
+    </div>
+    <button class="rest-btn" data-rest="adjust" data-delta="15">+15s</button>
+    <button class="rest-btn rest-skip" data-rest="skip">Skip</button>
+  </div>
+
   <script src="app.js"></script>
 </body>
 </html>

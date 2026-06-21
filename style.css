@@ -1,16 +1,27 @@
 /*
-  style.css — how the page LOOKS (colors, spacing, layout).
-  You can change any value here and refresh the browser to see the effect.
+  style.css — Hevy-inspired dark theme.
+
+  Design notes (what we copied):
+  - Shapes: rounded rectangles (cards 14px, inputs/buttons ~10px), no hard borders.
+  - Palette: near-black canvas, dark surfaces, a vivid blue accent, green for "done".
+  - Font: Inter (loaded in index.html) — a clean stand-in for Hevy's UI font.
+  - UI: each exercise is a card with a SET / KG / REPS / ✓ table, like Hevy.
 */
 
-/* A few reusable colors, defined once at the top so they're easy to tweak. */
 :root {
-  --bg: #0f172a;
-  --card: #1e293b;
-  --accent: #38bdf8;
-  --text: #e2e8f0;
-  --muted: #94a3b8;
+  --bg: #0e0f12;          /* page background (near black) */
+  --surface: #1a1c22;     /* cards */
+  --surface-2: #24262e;   /* inputs, set rows */
+  --border: #2c2f38;      /* subtle separators */
+  --text: #f4f5f7;        /* main text */
+  --muted: #9a9da6;       /* secondary text */
+  --accent: #2f6dff;      /* Hevy-style blue */
+  --accent-hover: #245ee0;
+  --green: #22c55e;       /* completed set */
+  --green-soft: rgba(34, 197, 94, 0.14);
   --danger: #f87171;
+  --radius: 14px;
+  --radius-sm: 10px;
 }
 
 * {
@@ -20,155 +31,478 @@
 }
 
 body {
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.5;
-  padding: 24px;
+  padding: 20px 16px 48px;
+  -webkit-font-smoothing: antialiased;
 }
 
 .container {
-  max-width: 640px;
+  max-width: 560px;
   margin: 0 auto;
 }
 
+.app-header {
+  margin-bottom: 20px;
+}
+
 h1 {
-  font-size: 2rem;
+  font-size: 1.6rem;
+  font-weight: 700;
 }
 
-.subtitle {
-  color: var(--muted);
-  margin-bottom: 24px;
+h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 14px;
 }
 
-/* Summary cards row */
+/* ---- Stats strip ---- */
 .stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 24px;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .stat-card {
-  background: var(--card);
-  border-radius: 12px;
-  padding: 16px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 16px 10px;
   text-align: center;
 }
 
 .stat-number {
   display: block;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: var(--accent);
 }
 
 .stat-label {
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
-/* Generic card container */
+/* ---- Generic card ---- */
 .card {
-  background: var(--card);
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 18px;
 }
 
-.card h2 {
-  font-size: 1.2rem;
-  margin-bottom: 16px;
-}
-
-/* Form fields */
-.field {
-  margin-bottom: 14px;
-}
-
-.row {
-  display: flex;
-  gap: 12px;
-}
-
-.row .field {
-  flex: 1;
-}
-
-label {
-  display: block;
-  font-size: 0.85rem;
+.muted {
   color: var(--muted);
-  margin-bottom: 6px;
-}
-
-input {
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid #334155;
-  background: #0f172a;
-  color: var(--text);
-  font-size: 1rem;
-}
-
-input:focus {
-  outline: none;
-  border-color: var(--accent);
-}
-
-button {
-  background: var(--accent);
-  color: #0f172a;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 20px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  width: 100%;
-}
-
-button:hover {
-  opacity: 0.9;
-}
-
-/* Workout list */
-.workout-list {
-  list-style: none;
-}
-
-.workout-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #334155;
-}
-
-.workout-item:last-child {
-  border-bottom: none;
-}
-
-.workout-info strong {
-  font-size: 1rem;
-}
-
-.workout-meta {
-  font-size: 0.8rem;
-  color: var(--muted);
-}
-
-.delete-btn {
-  background: transparent;
-  color: var(--danger);
-  width: auto;
-  padding: 6px 10px;
   font-size: 0.85rem;
 }
 
 .empty {
   color: var(--muted);
   text-align: center;
-  padding: 12px 0;
+  padding: 10px 0;
 }
+
+/* ---- Buttons ---- */
+button {
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  padding: 14px 20px;
+}
+.btn-primary:hover { background: var(--accent-hover); }
+
+.btn-primary.big {
+  width: 100%;
+  font-size: 1.05rem;
+}
+
+.btn-secondary {
+  background: var(--surface-2);
+  color: var(--text);
+  padding: 12px 16px;
+}
+.btn-secondary:hover { background: #2e313b; }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  padding: 8px 12px;
+}
+.btn-ghost:hover { color: var(--danger); }
+
+/* ---- Start / empty state ---- */
+.start-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 28px 18px;
+  margin-bottom: 18px;
+  text-align: center;
+}
+.start-card p {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+/* ---- Active workout session ---- */
+.session {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.session-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.session-volume {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ---- Exercise card (inside a session) ---- */
+.exercise {
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+.exercise-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.exercise-head h3 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.x-btn {
+  background: transparent;
+  color: var(--muted);
+  padding: 2px 6px;
+  font-size: 1rem;
+}
+.x-btn:hover { color: var(--danger); }
+
+/* The set table: 4 columns — SET | KG | REPS | ✓ */
+.set-header,
+.set-row {
+  display: grid;
+  grid-template-columns: 44px 1fr 1fr 44px;
+  gap: 8px;
+  align-items: center;
+}
+
+.set-header {
+  padding: 4px 0;
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.set-row {
+  padding: 6px 0;
+}
+
+.set-num {
+  text-align: center;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.set-input {
+  width: 100%;
+  text-align: center;
+  padding: 9px 6px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.set-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* The ✓ button to mark a set complete */
+.set-check {
+  width: 100%;
+  height: 36px;
+  background: var(--surface);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+.set-check:hover { border-color: var(--green); color: var(--green); }
+
+/* A completed set: green tint + solid green check */
+.set-row.completed .set-input {
+  border-color: transparent;
+  background: var(--green-soft);
+}
+.set-row.completed .set-check {
+  background: var(--green);
+  color: #052e13;
+  border-color: var(--green);
+}
+
+.add-set {
+  width: 100%;
+  background: transparent;
+  color: var(--accent);
+  padding: 10px;
+  margin-top: 6px;
+}
+.add-set:hover { background: rgba(47, 109, 255, 0.1); }
+
+/* ---- Add-exercise row ---- */
+.add-exercise {
+  display: flex;
+  gap: 8px;
+  margin: 6px 0 16px;
+}
+.add-exercise input {
+  flex: 1;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+.add-exercise input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* ---- History ---- */
+.history-card {
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  margin-bottom: 12px;
+}
+.history-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.history-head strong { font-size: 0.98rem; }
+
+.history-exercises {
+  list-style: none;
+  margin-top: 8px;
+}
+.history-exercises li {
+  font-size: 0.88rem;
+  color: var(--text);
+  padding: 3px 0;
+}
+.history-exercises .sets {
+  color: var(--muted);
+}
+
+.delete-btn {
+  background: transparent;
+  color: var(--danger);
+  padding: 4px 8px;
+  font-size: 0.82rem;
+}
+
+/* ---- Category dropdown ---- */
+.select {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.start-controls {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.start-controls .select { flex: 1; max-width: 220px; }
+
+.session-category {
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.session-right {
+  text-align: right;
+}
+
+/* ---- Exercise header action buttons ---- */
+.exercise-actions {
+  display: flex;
+  gap: 4px;
+}
+.icon-btn {
+  background: transparent;
+  color: var(--muted);
+  padding: 2px 6px;
+  font-size: 1rem;
+}
+.icon-btn:hover { color: var(--accent); }
+.icon-btn[data-action="remove-exercise"]:hover { color: var(--danger); }
+
+/* ---- Category badge in history ---- */
+.category-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(47, 109, 255, 0.16);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+/* ---- Duration cell (tap to time or enter) ---- */
+.duration-cell {
+  cursor: pointer;
+  color: var(--text);
+}
+.duration-cell:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.time-input {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Inline time panel (chooser + stopwatch) ---- */
+.time-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  margin: 4px 0 12px;
+}
+.time-panel-q {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.time-panel-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-left: auto;
+}
+.time-panel-btns button {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+}
+
+.timer-readout {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+.timer-display {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.timer-preview {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+/* ---- Rest timer bar (fixed to bottom) ---- */
+.rest-timer {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  z-index: 50;
+}
+.rest-timer[hidden] { display: none; }
+.rest-timer.done { border-color: var(--green); }
+
+.rest-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 64px;
+  line-height: 1.1;
+}
+.rest-label {
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+#restTime {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.rest-timer.done #restTime { color: var(--green); }
+
+.rest-btn {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+}
+.rest-btn:hover { border-color: var(--accent); }
+.rest-skip {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.rest-skip:hover { background: var(--accent-hover); }
