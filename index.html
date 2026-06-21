@@ -43,6 +43,25 @@
          live session with its exercises and sets). -->
     <section id="activeArea"></section>
 
+    <!-- Rest timer bar. Hidden until a rest starts (auto on completing a set,
+         or via the ⏱ button on an exercise). It sits here — in the page flow,
+         directly under the active workout area — but OUTSIDE #activeArea so the
+         re-renders that rebuild #activeArea never interrupt the running timer. -->
+    <div id="restTimer" class="rest-timer" hidden>
+      <!-- Left: icon + spelled-out label so the bar reads clearly at a glance -->
+      <div class="rest-title">
+        <span class="rest-icon">⏱</span>
+        <span class="rest-name">Rest Timer</span>
+      </div>
+      <!-- Right: the countdown and its controls -->
+      <div class="rest-controls">
+        <button class="rest-btn" data-rest="adjust" data-delta="-15">−15s</button>
+        <span id="restTime">1:30</span>
+        <button class="rest-btn" data-rest="adjust" data-delta="15">+15s</button>
+        <button class="rest-btn rest-skip" data-rest="skip">Skip</button>
+      </div>
+    </div>
+
     <!-- Finished workouts -->
     <section class="card">
       <h2>History</h2>
@@ -50,18 +69,6 @@
       <p id="emptyHistory" class="empty">No finished workouts yet. Start one above! 💪</p>
     </section>
   </main>
-
-  <!-- Rest timer bar. Hidden until a rest starts (auto on completing a set,
-       or via the ⏱ button on an exercise). Fixed to the bottom of the screen. -->
-  <div id="restTimer" class="rest-timer" hidden>
-    <button class="rest-btn" data-rest="adjust" data-delta="-15">−15s</button>
-    <div class="rest-display">
-      <span class="rest-label">Rest</span>
-      <span id="restTime">1:30</span>
-    </div>
-    <button class="rest-btn" data-rest="adjust" data-delta="15">+15s</button>
-    <button class="rest-btn rest-skip" data-rest="skip">Skip</button>
-  </div>
 
   <script src="app.js"></script>
 </body>

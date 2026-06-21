@@ -268,7 +268,6 @@ function exerciseHTML(exercise, fields, exIndex) {
       <div class="exercise-head">
         <h3>${exercise.name}</h3>
         <div class="exercise-actions">
-          <button class="icon-btn" data-action="rest" title="Start rest timer">⏱</button>
           <button class="icon-btn" data-action="remove-exercise" title="Remove exercise">✕</button>
         </div>
       </div>
@@ -276,6 +275,9 @@ function exerciseHTML(exercise, fields, exIndex) {
         <span>Set</span>${headerCols}<span></span>
       </div>
       ${rows}
+      <!-- Full-width button under the set rows: starts the rest countdown, which
+           then shows in the floating bar that follows you as you scroll. -->
+      <button class="rest-trigger" data-action="rest" title="Start rest timer">⏱ Rest Timer</button>
       <button class="add-set" data-action="add-set">+ Add set</button>
     </div>`;
 }
