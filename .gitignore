@@ -1,0 +1,12 @@
+# Files we don't want to upload to GitHub.
+
+# Operating-system clutter
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+.idea/
+
+# Logs
+*.log

@@ -1,0 +1,174 @@
+/*
+  style.css — how the page LOOKS (colors, spacing, layout).
+  You can change any value here and refresh the browser to see the effect.
+*/
+
+/* A few reusable colors, defined once at the top so they're easy to tweak. */
+:root {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --accent: #38bdf8;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --danger: #f87171;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  padding: 24px;
+}
+
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+/* Summary cards row */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* Generic card container */
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.card h2 {
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+}
+
+/* Form fields */
+.field {
+  margin-bottom: 14px;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+}
+
+.row .field {
+  flex: 1;
+}
+
+label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+button {
+  background: var(--accent);
+  color: #0f172a;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Workout list */
+.workout-list {
+  list-style: none;
+}
+
+.workout-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #334155;
+}
+
+.workout-item:last-child {
+  border-bottom: none;
+}
+
+.workout-info strong {
+  font-size: 1rem;
+}
+
+.workout-meta {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.delete-btn {
+  background: transparent;
+  color: var(--danger);
+  width: auto;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+}
+
+.empty {
+  color: var(--muted);
+  text-align: center;
+  padding: 12px 0;
+}
